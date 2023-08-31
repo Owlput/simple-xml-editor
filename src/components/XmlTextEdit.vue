@@ -1,7 +1,11 @@
 <script setup>
 import { ref } from "vue";
 
-const xmlText = ref(`<?xml version="1.0" encoding="UTF-8"?> \n`);
+const props = defineProps({
+    formattedXmlSetter:Function
+})
+
+const xmlText = ref(`<?xml version="1.0" encoding="UTF-8"?>\n<body>\n\n</body>`);
 const formatSuccess = ref(-1);
 
 function formatXml() {
@@ -14,6 +18,7 @@ function formatXml() {
 
 function prettifyXml(xmlToFormat, tab = "\t", nl = "\n") {
   // properly format xml without indent
+  // from https://stackoverflow.com/questions/376373/pretty-printing-xml-with-javascript
   let xmlDoc = new DOMParser().parseFromString(
     xmlToFormat.value,
     "application/xml"
@@ -23,7 +28,7 @@ function prettifyXml(xmlToFormat, tab = "\t", nl = "\n") {
   }
   let xsltDoc = new DOMParser().parseFromString(
     [
-      // describes how we want to modify the XML - indent everything
+      // describes how we want to modify the XML using XSL
       '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">',
       '  <xsl:strip-space elements="*"/>',
       '  <xsl:template match="para[content-style][not(text())]">', // change to just text() to strip space in text nodes
@@ -40,8 +45,10 @@ function prettifyXml(xmlToFormat, tab = "\t", nl = "\n") {
   let xsltProcessor = new XSLTProcessor();
   xsltProcessor.importStylesheet(xsltDoc);
   let resultDoc = xsltProcessor.transformToDocument(xmlDoc);
+  props.formattedXmlSetter(resultDoc)
 
   // add indents
+  // from https://jsfiddle.net/fbn5j7ya/
   let formatted = "",
     indent = "";
   const nodes = new XMLSerializer()
@@ -71,6 +78,7 @@ function computeStyle(isFormatSuccess) {
   if (isFormatSuccess == 0) {
     return { "border-width": "1px", "border-color": "red" };
   }
+  return "";
 }
 </script>
 <template>
@@ -86,7 +94,6 @@ function computeStyle(isFormatSuccess) {
       @click="
         () => {
           formatXml();
-          console.log(xmlText);
         }
       "
     >
