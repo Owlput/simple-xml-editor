@@ -1,7 +1,20 @@
-# Vue 3 + Vite
+# Simple XML Editor
+A really simple XML editor that takes advantage of your browser!  
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## TODO List  
+ - [x] Format XML docoment  
+ - [x] Show Doxument with GUI
+ - [ ] Editing XML with GUI interactively
+ - [ ] Release a Tauri application
 
-## Recommended IDE Setup
+## How To Use
+Unfortunately, for now you have to install the tooling needed to develop the entire application to use it.  
+- make sure you have `node` and `yarn`
+- clone the repo  
+- `yarn install`  
+- `yarn dev`  
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+But, a Tauri application is on its way! Contribution is warmly welcomed!
+
+## Licensing
+All code shall be distributed under MIT license with the exception of snippets marked explicitly from other sources.
