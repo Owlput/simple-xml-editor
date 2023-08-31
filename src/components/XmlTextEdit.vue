@@ -2,10 +2,12 @@
 import { ref } from "vue";
 
 const props = defineProps({
-    formattedXmlSetter:Function
-})
+  formattedXmlSetter: Function,
+});
 
-const xmlText = ref(`<?xml version="1.0" encoding="UTF-8"?>\n<body>\n\n</body>`);
+const xmlText = ref(
+  `<?xml version="1.0" encoding="UTF-8"?>\n<body>\n\n</body>`
+);
 const formatSuccess = ref(-1);
 
 function formatXml() {
@@ -45,7 +47,7 @@ function prettifyXml(xmlToFormat, tab = "\t", nl = "\n") {
   let xsltProcessor = new XSLTProcessor();
   xsltProcessor.importStylesheet(xsltDoc);
   let resultDoc = xsltProcessor.transformToDocument(xmlDoc);
-  props.formattedXmlSetter(resultDoc)
+  props.formattedXmlSetter(resultDoc);
 
   // add indents
   // from https://jsfiddle.net/fbn5j7ya/
